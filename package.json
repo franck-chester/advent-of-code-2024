@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.10",
+    "@types/node": "^18.19.67",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "test": "ts-node aoc2023-fn.ts 10 1 test"
+  }
+}
