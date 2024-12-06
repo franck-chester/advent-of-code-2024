@@ -27,7 +27,7 @@ export class Grid<T> {
   }
 
   public static fromEntries<T>(entries: string[], parseCell: (cellValue: string, x?: number, y?: number) => T) {
-    const grid = new Grid<T>(entries[0].length, entries.length, (x,y)=>parseCell(entries[y].charAt(x), x, y));
+    const grid = new Grid<T>(entries[0].length, entries.length, (x, y) => parseCell(entries[y].charAt(x), x, y));
     return grid;
   }
 
@@ -69,7 +69,7 @@ export class Grid<T> {
 
   logToConsole(formatter: (c: T | undefined) => string) {
     const line = Array(this.width).fill('-').join('');
-    console.log(`----- ${this.maxX + 1} X ${this.maxY + 1} Grid ${line}`.substring(0, this.width+11));
+    console.log(`----- ${this.maxX + 1} X ${this.maxY + 1} Grid ${line}`.substring(0, this.width + 11));
     let hundredsLine = '--- : ';
     let tensLine = '--- : ';
     let unitsLine = '--- : ';
@@ -78,24 +78,33 @@ export class Grid<T> {
       const tens = Math.floor(y / 10) % 10;
       const units = y % 10;
       hundredsLine += hundreds == 0 ? ' ' : hundreds;
-      tensLine += tens == 0 ? (hundreds == 0? ' ': tens) : tens;
+      tensLine += tens == 0 ? (hundreds == 0 ? ' ' : tens) : tens;
       unitsLine += units;
     }
-    if(this.width>99) console.log(hundredsLine + ' : ---');
-    if(this.width>9)console.log(tensLine + ' : ---');
+    if (this.width > 99) console.log(hundredsLine + ' : ---');
+    if (this.width > 9) console.log(tensLine + ' : ---');
     console.log(unitsLine + ' : ---');
     for (let y = 0; y <= this.maxY; y++) {
       const Xs = this.cells.map(c => formatter(c[y])).join('');
       console.log(('' + y).padStart(3, ' ') + ' : ' + Xs + ' : ' + y);
     }
-    if(this.width>99) console.log(hundredsLine + ' : ---');
-    if(this.width>9)console.log(tensLine + ' : ---');
+    if (this.width > 99) console.log(hundredsLine + ' : ---');
+    if (this.width > 9) console.log(tensLine + ' : ---');
     console.log(unitsLine + ' : ---');
     console.log(`------${line}------`)
   }
 
   forEach(logic: (c: T | undefined, x?: number, y?: number) => any) {
     this.cells.forEach((column, y) => column.forEach((c, x) => logic(c, x, y)));
+  }
+
+
+  count(predicate: (c: T) => boolean): number {
+    let count = 0;
+    this.forEach(c => {
+      if (predicate(c!)) count++
+    });
+    return count;
   }
 }
 
