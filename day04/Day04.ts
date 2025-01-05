@@ -14,7 +14,7 @@ part1.inputFile = 'input.txt';
 export function part2(entries: string[], isTest? : boolean, testNumber?:number): string { return part2Implementation(entries, isTest, testNumber); };
 part2.day = day;
 part2.testFile = 'test.txt';    // ['test01.txt'];
-part2.example = '???';          // ['???'];
+part2.example = 9;          // ['???'];
 part2.inputFile = 'input.txt';
 
 /////////////////////////////
@@ -81,8 +81,66 @@ function part1Implementation(entries: string[], isTest? : boolean, testNumber?:n
 // ACTUAL CODE - Part TWO  //
 /////////////////////////////
 function part2Implementation(entries: string[], isTest? : boolean, testNumber?:number) {
-    let solution = '???'
-    for(let i=0; i<entries.length; i++){
+    let solution = 0;
+    const MAS = 'MAS';
+    const grid = Grid.fromEntries<string>(entries, (s) => MAS.includes(s)? s : '.');
+
+    enum Direction {
+        DOWN_RIGHT = "↘",
+        DOWN_LEFT = "↙",
+        UP_RIGHT = "↗",
+        UP_LEFT = "↖"
     }
+
+    type DirectionOffset = [number, number, Direction];
+    const directions: DirectionOffset[] = [
+        [1, 1, Direction.DOWN_RIGHT], [-1, -1, Direction.DOWN_LEFT], [1, -1, Direction.UP_RIGHT], [-1, 1, Direction.UP_LEFT] 
+    ];
+
+    function depthFirstSearch(x: number, y: number, index: number, direction: Direction): boolean {
+        if (index === MAS.length) return true; // we have matched all characters, stop now
+
+        if (x < 0 || y < 0 || x > grid.maxX || y > grid.maxY || grid.getCell(x,y) !== MAS[index]) return false; // we've gone past the grid boundary or found a non-matching character
+
+        const startingCharacter = grid.getCell(x,y)!;
+        grid.setCell(x,y,'#'); // temporarily mark as visited so that we don't revisit within that one search
+
+        const [dx, dy] = directions.find(d => d[2] === direction)!;
+        if (depthFirstSearch(x + dx, y + dy, index + 1, direction)) {
+            grid.setCell(x,y,startingCharacter); // Unmark - This is the backtracking step, where the function reverts to the previous state to explore other paths.
+            return true;
+        }
+
+        grid.setCell(x,y,startingCharacter); // Unmark 
+        return false;
+    }
+
+    // find all the 'MAS' written diagonally and keep track of the position of the A
+    const aInMas = new Map<string, number>();
+    for(let x = 0; x<=grid.maxX; x++){
+        for(let y = 0; y<=grid.maxY; y++){
+            // start searching for the first letter of the word and then explore the neighboring cells to find the next letter. 
+            // If at any point, we can't find the next letter or reach a boundary of the grid, we backtrack to the previous letter and try a different path.
+            for (const [dx, dy, direction] of directions) {
+                if (depthFirstSearch(x, y, 0, direction)) {
+                    const [dx, dy] = directions.find(d => d[2] === direction)!;
+                    const key = `${x+dx},${y+dy}`;
+                    aInMas.set(key,aInMas.has(key)?2:1);
+                    
+                    console.log(`found MAS starting from ${x}, ${y} in direction ${direction}`);
+                    grid.logAreaToConsole(x,y,3, (s) => s!);
+                }
+            }
+        }
+    }
+
+    // find All the As with 2 MAS 
+    aInMas.forEach((value, _) => {
+        console.log()
+        if(value == 2) solution++
+    });
+
+    console.log(JSON.stringify(aInMas));
+
     return `${solution}`;
 }
