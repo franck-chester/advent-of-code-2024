@@ -35,8 +35,49 @@ Once hygen is installed (`npm i -g hygen`) adding a new day is as simple as typi
 
 `hygen day add --day 6`
 
+## Didn't do this at xmas
+
+Had an initial go, managed (barely) days 1, 2, 5 and 6 before stopping.
+Picking this up in January
+
 ## ⭐⭐ Day 1: Historian Hysteria
 
 Easy enough, just wish it hadn't been a Sunday. Ended up doing it at bed time.
 But at least this new repo is ready
+
+## ⭐   Day 2: Red-Nosed Reports
+
+can't even remember how I did part 1 before xmas
+
+## ?   Day 3: Mull It Over
+
+05/01/2025
+
+
+## ⭐   Day 5: Print Queue
+
+can't even remember how I did part 1 before xmas
+
+## ⭐   Day 6: Guard Gallivant
+
+can't even remember how I did part 1 before xmas
+
+## ⭐⭐ Day 7: Bridge Repair
+
+so, january the 4th,  2 h 30 on this, mostly building an over complicated tree class I didn't need but will hopefully come handy in the future.
+part 2 took me just a few minutes, litteraly adding an extra line, so quite pleased.
+but OMG it took me a while to get in gear. I've started asking copilot for bits of algorithms, but usually don't like the answer.
+I asked it to start me with my Tree class, then wasted 30 min arguing with a machine before going back to using my own brain.
+
+## ⭐⭐ Day 8: Resonant Collinearity
+
+05/01/2025
+mulled the solution in bed, decided not to use my Grid class but use a Map of coordinates.
+not super optimised but I've managed to avoid a few obvious pitfall that would have had me reiterate the same location
+several times. e.g. I build the pairs as I go.
+
+used copilot for the reflection and alignedWith functions. 
+I knew what I wanted, I even knew how to do it, but didn't trust myself.
+
+about 15 min for part 2 - again, quite happy with that
 
