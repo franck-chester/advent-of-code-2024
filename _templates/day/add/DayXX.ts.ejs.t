@@ -23,6 +23,8 @@ part2.inputFile = 'input.txt';
 /////////////////////////////
 function part1Implementation(entries: string[], isTest? : boolean, testNumber?:number) {
     let solution = '???'
+    for(let i=0; i<entries.length; i++){
+    }
     return `${solution}`;
 }
 
@@ -31,5 +33,7 @@ function part1Implementation(entries: string[], isTest? : boolean, testNumber?:n
 /////////////////////////////
 function part2Implementation(entries: string[], isTest? : boolean, testNumber?:number) {
     let solution = '???'
+    for(let i=0; i<entries.length; i++){
+    }
     return `${solution}`;
 }

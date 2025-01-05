@@ -85,7 +85,7 @@ function part2Implementation(entries: string[], isTest? : boolean, testNumber?:n
         const matches = m.exec(entries[i]);
         const result = parseInt(matches?.groups?.result!);
         const values = (matches?.groups?.values!).split(' ').map(s => parseInt(s));
-        console.log(`i = ${i}, result = ${result}, values = ${values}`)
+        //console.log(`i = ${i}, result = ${result}, values = ${values}`)
         let equation : Equation = {
             result,
             values,
@@ -106,15 +106,15 @@ function part2Implementation(entries: string[], isTest? : boolean, testNumber?:n
         }
         let validEquations = nodes.filter(n => {
             if(n.value == result){
-                console.log(n.debugLabel);
+                //console.log(n.debugLabel);
             }
             return n.value == result
     });
         if(validEquations.length > 0){
-            console.log(`valid   : ${entries[i]}`);
+            //console.log(`valid   : ${entries[i]}`);
             solution += result;
         }else {
-            console.error(`invalid : ${entries[i]}`);
+            //console.error(`invalid : ${entries[i]}`);
         }
     }
     return `${solution}`;
