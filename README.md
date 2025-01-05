@@ -56,7 +56,9 @@ flag but otherwise easy. Part 2 twist was that you could have consecutive `do()`
 
 ## Day 4: Ceres Search
 
-looked up the algorith, apparently it's [backtracking](https://algodaily.com/lessons/word-search-solver-d642e52a)
+05/01/2025 - not too hard... looked up the proper depth search algorithm because previous years implementation were poo. 
+Apparently it's [backtracking](https://algodaily.com/lessons/word-search-solver-d642e52a).
+2nd part was easy, just searched for diagonal MAS, tracked the A and counted A part of 2 MAS.. 30 min. happy enough.
 
 ## ⭐   Day 5: Print Queue
 
@@ -85,3 +87,6 @@ I knew what I wanted, I even knew how to do it, but didn't trust myself.
 
 about 15 min for part 2 - again, quite happy with that
 
+## Day 9: Disk Fragmenter
+
+05/01/2025
