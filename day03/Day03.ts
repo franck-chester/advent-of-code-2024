@@ -37,6 +37,7 @@ function part1Implementation(entries: string[], isTest?: boolean, testNumber?: n
 function part2Implementation(entries: string[], isTest?: boolean, testNumber?: number) {
     let solution = 0;
     // flatten the entries back into a single string
+    // eliminate the parts within a don't() ... do() block
     const instructions = entries.join().split(/don't\(\).*?do\(\)/g).join();
     const regex = /mul\((?<a>\d{1,3}),(?<b>\d{1,3})\)/g;
 

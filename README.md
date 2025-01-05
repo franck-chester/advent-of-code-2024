@@ -49,10 +49,14 @@ But at least this new repo is ready
 
 can't even remember how I did part 1 before xmas
 
-## ?   Day 3: Mull It Over
+## ⭐⭐  Day 3: Mull It Over
 
-05/01/2025
+05/01/2025 - super easy regex problem. Tripped a bit on how to iterate matches (I always forget) and hit an infinite loop after forgetting a `/g`
+flag but otherwise easy. Part 2 twist was that you could have consecutive `do()` or `don't()` so my initial solution (split on either) didn't work
 
+## Day 4: Ceres Search
+
+looked up the algorith, apparently it's [backtracking](https://algodaily.com/lessons/word-search-solver-d642e52a)
 
 ## ⭐   Day 5: Print Queue
 

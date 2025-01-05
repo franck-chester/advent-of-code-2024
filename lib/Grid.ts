@@ -101,34 +101,57 @@ export class Grid<T> {
   logToConsole2(formatter: (c: T | undefined, x: number, y: number) => string) {
     const line = Array(this.width).fill('-').join('');
     console.log(`----- ${this.maxX + 1} X ${this.maxY + 1} Grid ${line}`.substring(0, this.width + 11));
-    
+
     let hundredsLine = '--- : ';
     let tensLine = '--- : ';
     let unitsLine = '--- : ';
-    
+
     for (let y = 0; y < this.width; y++) {
-        const hundreds = Math.floor(y / 100) % 10;
-        const tens = Math.floor(y / 10) % 10;
-        const units = y % 10;
-        hundredsLine += hundreds === 0 ? ' ' : hundreds;
-        tensLine += tens === 0 ? (hundreds === 0 ? ' ' : tens) : tens;
-        unitsLine += units;
+      const hundreds = Math.floor(y / 100) % 10;
+      const tens = Math.floor(y / 10) % 10;
+      const units = y % 10;
+      hundredsLine += hundreds === 0 ? ' ' : hundreds;
+      tensLine += tens === 0 ? (hundreds === 0 ? ' ' : tens) : tens;
+      unitsLine += units;
     }
-    
+
     if (this.width > 99) console.log(hundredsLine + ' : ---');
     if (this.width > 9) console.log(tensLine + ' : ---');
     console.log(unitsLine + ' : ---');
-    
+
     for (let y = 0; y <= this.maxY; y++) {
-        const Xs = this.cells.map((column, x) => formatter(column[y], x, y)).join('');
-        console.log(('' + y).padStart(3, ' ') + ' : ' + Xs + ' : ' + y);
+      const Xs = this.cells.map((column, x) => formatter(column[y], x, y)).join('');
+      console.log(('' + y).padStart(3, ' ') + ' : ' + Xs + ' : ' + y);
     }
-    
+
     if (this.width > 99) console.log(hundredsLine + ' : ---');
     if (this.width > 9) console.log(tensLine + ' : ---');
     console.log(unitsLine + ' : ---');
     console.log(`------${line}------`);
-}
+  }
+
+  logAreaToConsole(centreX: number, centreY: number, width: number, formatter: (c: T | undefined) => string) {
+
+    for (let y = centreY - width; y <= centreY + width; y++) {
+      if (y < 0) {
+        continue
+      } else if (y > this.maxY) {
+        console.log(`${y.toString().padStart(2, '0')} - `);
+      } else {
+        let row = '';
+        for (let x = centreX - width; x <= centreX + width; x++) {
+          if (x < 0) {
+            row += '';
+          } else if (x > this.maxX) {
+            row += ' ';
+          } else {
+            row += this.getCell(x, y);
+          }
+        }
+        console.log(`${y.toString().padStart(2, '0')} - ${row}`);
+      }
+    }
+  }
 
 
   count(predicate: (c: T) => boolean): number {
