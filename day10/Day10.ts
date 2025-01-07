@@ -14,7 +14,7 @@ part1.inputFile = 'input.txt';
 export function part2(entries: string[], isTest?: boolean, testNumber?: number): string { return part2Implementation(entries, isTest, testNumber); };
 part2.day = day;
 part2.testFile = 'test.txt';    // ['test01.txt'];
-part2.example = '???';          // ['???'];
+part2.example = 81;          // ['???'];
 part2.inputFile = 'input.txt';
 
 /////////////////////////////
@@ -84,8 +84,61 @@ function part1Implementation(entries: string[], isTest?: boolean, testNumber?: n
 // ACTUAL CODE - Part TWO  //
 /////////////////////////////
 function part2Implementation(entries: string[], isTest?: boolean, testNumber?: number) {
-    let solution = '???'
-    for (let i = 0; i < entries.length; i++) {
+    let solution = 0;
+    const grid = Grid.fromEntries<number>(entries, (s) => s === '.' ? -2 : parseInt(s));
+
+    enum Direction {
+        RIGHT = "→",
+        DOWN = "↓",
+        LEFT = "←",
+        UP = "↑",
+        DOWN_RIGHT = "↘",
+        DOWN_LEFT = "↙",
+        UP_RIGHT = "↗",
+        UP_LEFT = "↖"
     }
+
+    type DirectionOffset = [number, number, Direction];
+    const directions: DirectionOffset[] = [
+        [1, 0, Direction.RIGHT], [0, 1, Direction.DOWN], [-1, 0, Direction.LEFT], [0, -1, Direction.UP]
+    ];
+
+    type Trail = { x: number, y: number }[];
+
+    function depthFirstSearch(x: number, y: number, index: number, trail: Trail): Trail[] {
+        if (x < 0 || y < 0 || x > grid.maxX || y > grid.maxY || grid.getCell(x, y) !== index) return []; // we've gone past the grid boundary or the height is wrong
+        if (index === 9 ) return [trail]; // we have reached the end of the trail, return it
+
+        const startingHeight = grid.getCell(x, y)!;
+        grid.setCell(x, y, -1); // temporarily mark as visited so that we don't revisit within that one search
+
+        let trails: Trail[] = [];
+        for (const [dx, dy] of directions) {
+            const newTrail = [...trail, { x: x + dx, y: y + dy }];
+            trails.push(...depthFirstSearch(x + dx, y + dy, index + 1, newTrail));
+        }
+
+        grid.setCell(x, y, startingHeight); // Unmark
+        return trails;
+    }
+
+    for (let y = 0; y <= grid.maxY; y++) {
+        for (let x = 0; x <= grid.maxX; x++) {
+            // start searching for height == 0 and then explore the neighboring cells to find the next possible height. 
+            // If at any point, we can't find the next height or reach a boundary of the grid, we backtrack to the previous letter and try a different path.
+            if (grid.getCell(x, y) === 0) {
+                const trails = depthFirstSearch(x, y, 0, [{ x, y }]);
+                const distinctTrails = new Set<string>();
+                trails.forEach(t => {
+                    const trailId = t.map(xy => `(${xy.x},${xy.y})`).join('->');
+                    distinctTrails.add(trailId);
+                    console.log(trailId);
+                });
+                if (isTest) console.log(`score = ${distinctTrails.size} starting from ${x},${y}`);
+                solution += distinctTrails.size;
+            }
+        }
+    }
+
     return `${solution}`;
 }
