@@ -87,6 +87,7 @@ I knew what I wanted, I even knew how to do it, but didn't trust myself.
 
 about 15 min for part 2 - again, quite happy with that
 
-## Day 9: Disk Fragmenter
+## ⭐⭐ Day 9: Disk Fragmenter
 
-05/01/2025
+05/01/2025 - relatively easy. A few off by one errors caused by removing and adding to an array I was iterating, but nothing major.
+
