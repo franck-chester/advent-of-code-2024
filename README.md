@@ -91,3 +91,12 @@ about 15 min for part 2 - again, quite happy with that
 
 05/01/2025 - relatively easy. A few off by one errors caused by removing and adding to an array I was iterating, but nothing major.
 
+## ⭐⭐ Day 10: Hoof It
+
+07/01/2025 - mostly a cut and paste of day 4 with tweaks - took this one part 2 to realise my depthFirstSearch algorithm had its end and boundary test conditions in the wrong order... worked fine till then.
+
+## ⭐   Day 11: Plutonian Pebbles 
+
+09/01/2025 - part 1 was easy enough but didn't scale.
+Part 2 is probably not that difficult but just can't my head around it, loads of off by 1 errors, so I've given up 
+
